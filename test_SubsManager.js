@@ -19,7 +19,7 @@ if (Meteor.isClient) {
     }
     self.inc=function(inc)
     {
-      self.i+=(_.isNumber(inc))?inincit:1
+      self.i+=(_.isNumber(inc))?inc:1
       dep.changed()
     }
     self.get=function()
