@@ -5,7 +5,7 @@ items = new Mongo.Collection("items")
 if (Meteor.isClient) {
   Session.setDefault("numberOfSubs",10)
 
-  var subsApp=new SubsManager()
+  var subsAppIronRouter=new SubsManager()
   var counter=function(init){
     var self=this
     self.dep=new Tracker.Dependency
@@ -28,14 +28,7 @@ if (Meteor.isClient) {
     return this.i
   }
   var waitOnCounter=new counter()
-  var trackerCounter=new counter()
 
-  Tracker.autorun(function(){
-    trackerCounter.inc()
-      _.each(_.range(Session.get("numberOfSubs")),function(page){
-            return subsApp.subscribe("items",page)
-          })
-  })
   Router.route("/",{
     template:"hello",
     waitOn:function()
@@ -43,7 +36,7 @@ if (Meteor.isClient) {
       try{
         waitOnCounter.inc()
         return _.map(_.range(Session.get("numberOfSubs")),function(page){
-              return subsApp.subscribe("items",page)
+              return subsAppIronRouter.subscribe("items",page)
             }
           )
         }
@@ -59,10 +52,7 @@ if (Meteor.isClient) {
     {
       return waitOnCounter.get()
     },
-    trackerCounter:function()
-    {
-      return trackerCounter.get()
-    },
+
     numberOfSubs:function()
     {
       return Session.get("numberOfSubs")
