@@ -1,0 +1,20 @@
+<head>
+  <title>test_SubsManager</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+  {{>noIronRouter}}
+
+</body>
+
+<template name="hello">
+
+  <p>hello template used by iron router</p>
+</template>
+<template name="noIronRouter">
+  <button type="button">reset</button>
+  <input type="number" min=1  step=1 value={{numberOfSubs}}> number of subscription
+  <p>iron router WaitOn runned : {{waitOnCounter}} times</p>
+  <p>tracker.autorun runned : {{trackerCounter}} times</p>
+</template>
